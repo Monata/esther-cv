@@ -24,20 +24,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const fishStage = document.querySelector(".fish-stage");
-  if (fishStage && "IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            fishStage.classList.add("is-active");
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(fishStage);
-  } else if (fishStage) {
-    fishStage.classList.add("is-active");
-  }
 });

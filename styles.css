@@ -10,6 +10,11 @@
   --gutter: 32px;
   --radius: 0px;
   --shadow: 0 0 0 1px var(--line);
+  --fish-width: 260px;
+  --fish-gap: clamp(24px, 12vw, 180px);
+  --fish-distance: calc(var(--fish-width) + var(--fish-gap));
+  --fish-base-x: -12.44px;
+  --fish-base-y: -26.9px;
 }
 
 * {
@@ -349,101 +354,151 @@ p {
   position: relative;
   height: 140px;
   margin-top: 36px;
+  overflow: hidden;
 }
 
-.fish {
+.fish-wrap {
   position: absolute;
-  left: -120px;
-  width: 120px;
-  height: 70px;
-  --fish-color: #ffd8d9;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 0.6px rgba(0, 0, 0, 0.35));
-  animation: swim 14s linear infinite;
-  animation-play-state: paused;
+  left: 0;
+  right: 0;
+  top: 28px;
+  height: 84px;
+  pointer-events: none;
 }
 
-.fish-icon {
-  width: 100%;
-  height: 100%;
+.fish-track {
+  display: flex;
+  align-items: center;
+  gap: var(--fish-gap);
+  width: max-content;
+  transform: translate3d(calc(-1 * var(--fish-distance)), 0, 0);
+  animation: school-swim 18s linear infinite;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+.fish-school {
   display: block;
-  shape-rendering: geometricPrecision;
+  width: var(--fish-width);
+  height: 84px;
+  overflow: visible;
+  flex: 0 0 auto;
 }
 
-.fish-shape {
-  fill: var(--fish-color);
-  stroke: rgba(0, 0, 0, 0.22);
-  stroke-width: 1;
-  stroke-linejoin: miter;
-  vector-effect: non-scaling-stroke;
-}
-
-.fish-tail {
+.fish-school .fish-color {
+  fill: var(--pink);
+  opacity: 0.95;
   transform-box: fill-box;
-  transform-origin: 100% 50%;
-  animation: tail 0.6s ease-in-out infinite;
+  transform-origin: center;
+  animation: fish-swish 2.4s ease-in-out infinite;
+  --fish-offset: 0px;
+  transform: translate(var(--fish-base-x), var(--fish-base-y)) translateY(var(--fish-offset)) scaleX(1);
 }
 
-.fish-eye {
-  fill: rgba(0, 0, 0, 0.6);
+.fish-school #fish1,
+.fish-school #fish4,
+.fish-school #fish7,
+.fish-school #fish10,
+.fish-school #fish13,
+.fish-school #fish16,
+.fish-school #fish19,
+.fish-school #fish22 {
+  fill: var(--pink);
 }
 
-.fish-stage.is-active .fish {
-  animation-play-state: running;
+.fish-school #fish2,
+.fish-school #fish5,
+.fish-school #fish8,
+.fish-school #fish11,
+.fish-school #fish14,
+.fish-school #fish17,
+.fish-school #fish20,
+.fish-school #fish23 {
+  fill: var(--lavender);
 }
 
-.fish-one {
-  top: 8px;
-  --fish-color: #ffd8d9;
-  animation-duration: 16s;
+.fish-school #fish3,
+.fish-school #fish6,
+.fish-school #fish9,
+.fish-school #fish12,
+.fish-school #fish15,
+.fish-school #fish18,
+.fish-school #fish21,
+.fish-school #fish24 {
+  fill: var(--green);
 }
 
-.fish-two {
-  top: 52px;
-  --fish-color: #d8c4ff;
-  animation-duration: 18s;
-  animation-delay: 2s;
-}
+.fish-school #fish1 { --fish-offset: -9.4px; }
+.fish-school #fish2 { --fish-offset: -12.4px; }
+.fish-school #fish3 { --fish-offset: -4.1px; }
+.fish-school #fish4 { --fish-offset: -14.8px; }
+.fish-school #fish5 { --fish-offset: 3.8px; }
+.fish-school #fish6 { --fish-offset: -2.6px; }
+.fish-school #fish7 { --fish-offset: -5.6px; }
+.fish-school #fish8 { --fish-offset: 2.6px; }
+.fish-school #fish9 { --fish-offset: -8px; }
+.fish-school #fish10 { --fish-offset: 7.1px; }
+.fish-school #fish11 { --fish-offset: 0.4px; }
+.fish-school #fish12 { --fish-offset: -2.5px; }
+.fish-school #fish13 { --fish-offset: -5px; }
+.fish-school #fish14 { --fish-offset: 10.6px; }
+.fish-school #fish15 { --fish-offset: 12.8px; }
+.fish-school #fish16 { --fish-offset: 14.8px; }
+.fish-school #fish17 { --fish-offset: -7.5px; }
+.fish-school #fish18 { --fish-offset: 0.1px; }
+.fish-school #fish19 { --fish-offset: 2.7px; }
+.fish-school #fish20 { --fish-offset: -0.5px; }
+.fish-school #fish21 { --fish-offset: -3.2px; }
+.fish-school #fish22 { --fish-offset: 8.2px; }
+.fish-school #fish23 { --fish-offset: 6.8px; }
+.fish-school #fish24 { --fish-offset: 5.7px; }
 
-.fish-three {
-  top: 96px;
-  --fish-color: #e7fad4;
-  animation-duration: 20s;
-  animation-delay: 4s;
-}
+.fish-school #fish1 { animation-delay: 0s; }
+.fish-school #fish2 { animation-delay: 0.2s; }
+.fish-school #fish3 { animation-delay: 0.4s; }
+.fish-school #fish4 { animation-delay: 0.6s; }
+.fish-school #fish5 { animation-delay: 0.8s; }
+.fish-school #fish6 { animation-delay: 1s; }
+.fish-school #fish7 { animation-delay: 1.2s; }
+.fish-school #fish8 { animation-delay: 1.4s; }
+.fish-school #fish9 { animation-delay: 1.6s; }
+.fish-school #fish10 { animation-delay: 1.8s; }
+.fish-school #fish11 { animation-delay: 2s; }
+.fish-school #fish12 { animation-delay: 2.2s; }
+.fish-school #fish13 { animation-delay: 2.4s; }
+.fish-school #fish14 { animation-delay: 2.6s; }
+.fish-school #fish15 { animation-delay: 2.8s; }
+.fish-school #fish16 { animation-delay: 3s; }
+.fish-school #fish17 { animation-delay: 3.2s; }
+.fish-school #fish18 { animation-delay: 3.4s; }
+.fish-school #fish19 { animation-delay: 3.6s; }
+.fish-school #fish20 { animation-delay: 3.8s; }
+.fish-school #fish21 { animation-delay: 4s; }
+.fish-school #fish22 { animation-delay: 4.2s; }
+.fish-school #fish23 { animation-delay: 4.4s; }
+.fish-school #fish24 { animation-delay: 4.6s; }
 
-@keyframes swim {
+@keyframes school-swim {
   0% {
-    transform: translateX(0) translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateX(35vw) translateY(-4px) rotate(1deg);
-  }
-  50% {
-    transform: translateX(70vw) translateY(2px) rotate(-1deg);
-  }
-  75% {
-    transform: translateX(105vw) translateY(-3px) rotate(1deg);
+    transform: translate3d(calc(-1 * var(--fish-distance)), 0, 0);
   }
   100% {
-    transform: translateX(140vw) translateY(0) rotate(0deg);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes tail {
-  0% {
-    transform: rotate(14deg);
+@keyframes fish-swish {
+  0%, 100% {
+    transform: translate(var(--fish-base-x), var(--fish-base-y)) translateY(var(--fish-offset)) scaleX(1);
   }
   50% {
-    transform: rotate(-14deg);
-  }
-  100% {
-    transform: rotate(14deg);
+    transform: translate(var(--fish-base-x), var(--fish-base-y)) translateY(var(--fish-offset)) scaleX(0.96);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fish {
+  .fish-track,
+  .fish-school .fish-color {
     animation: none;
   }
 }
