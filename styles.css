@@ -13,6 +13,7 @@
   --fish-width: 260px;
   --fish-gap: clamp(24px, 12vw, 180px);
   --fish-distance: calc(var(--fish-width) + var(--fish-gap));
+  --fish-track-width: calc(var(--fish-width) * 2 + var(--fish-gap));
   --fish-base-x: -12.44px;
   --fish-base-y: -26.9px;
 }
@@ -367,14 +368,16 @@ p {
 }
 
 .fish-track {
+  position: absolute;
+  top: 0;
+  left: calc(-1 * var(--fish-track-width));
   display: flex;
   align-items: center;
   gap: var(--fish-gap);
   width: max-content;
-  transform: translate3d(calc(-1 * var(--fish-distance)), 0, 0);
-  animation: school-swim 18s linear infinite;
+  animation: school-swim 22s linear infinite;
   animation-fill-mode: both;
-  will-change: transform;
+  will-change: left;
 }
 
 .fish-school {
@@ -480,10 +483,10 @@ p {
 
 @keyframes school-swim {
   0% {
-    transform: translate3d(calc(-1 * var(--fish-distance)), 0, 0);
+    left: calc(-1 * var(--fish-track-width));
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    left: 100%;
   }
 }
 
